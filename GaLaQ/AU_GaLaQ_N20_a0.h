@@ -1,0 +1,29 @@
+//    Copyright 2024 Amol Upadhye
+//
+//    This file is part of FlowsForTheMassesII.
+//
+//    FlowsForTheMassesII is free software: you can redistribute
+//    it and/or modify it under the terms of the GNU General
+//    Public License as published by the Free Software
+//    Foundation, either version 3 of the License, or (at
+//    your option) any later version.
+//
+//    FlowsForTheMassesII is distributed in the hope that it
+//    will be useful, but WITHOUT ANY WARRANTY; without
+//    even the implied warranty of MERCHANTABILITY or
+//    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+//    Public License for more details.
+//
+//    You should have received a copy of the GNU General
+//    Public License along with FlowsForTheMassesII.  If not,
+//    see <http://www.gnu.org/licenses/>.
+
+// Gauss-Legendre Quadrature with N=20, alpha=0
+const int GALAQ_N = 20;
+
+const double GALAQ_alpha = 0;
+
+const double GALAQ_q[] = {7.053988969198873860e-02,3.721268180016114591e-01,9.165821024832735420e-01,1.707306531028343954e+00,2.749199255309432210e+00,4.048925313850887164e+00,5.615174970861616544e+00,7.459017453671062725e+00,9.594392869581097827e+00,1.203880254696431606e+01,1.481429344263074022e+01,1.794889552051937542e+01,2.147878824028501299e+01,2.545170279318690376e+01,2.993255463170061148e+01,3.501343424047900044e+01,4.083305705672857044e+01,4.761999404734650199e+01,5.581079575006389604e+01,6.652441652561574870e+01};
+
+const double GALAQ_w[] = {1.687468018511122103e-01,2.912543620060691896e-01,2.666861028670011735e-01,1.660024532695073551e-01,7.482606466879251905e-02,2.496441730928326830e-02,6.202550844572276949e-03,1.144962386476909956e-03,1.557417730278126721e-04,1.540144086522499307e-05,1.086486366517985618e-06,5.330120909556763618e-08,1.757981179050600398e-09,3.725502402512266994e-11,4.767529251578185639e-13,3.372844243362557299e-15,1.155014339500403969e-17,1.539522140582346850e-20,5.286442725569080207e-24,1.656456612499128684e-28};
+

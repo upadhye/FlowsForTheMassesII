@@ -1,0 +1,100 @@
+# ==============================================================================
+# ============== Parameter file for FlowsForTheMasses computation ==============
+# ==============================================================================
+#
+# Lines beginning with a '#' are ignored by the code.  Parameters must be 
+# listed in the order below. 
+#
+# -------------------------- cosmologial parameters ----------------------------
+#
+# n_s: scalar spectral index
+0.9660499
+
+# sigma_8: z=0 normalization of linear power spectrum
+0.787637
+
+# h: Hubble parameter today, H_0 / (100 km/sec/Mpc)
+0.6766
+
+# Omega_m: total matter fraction today (cdm, baryons, massive nu)
+0.3110613141169673
+
+# Omega_b: baryon fraction today
+0.04897468161869667
+
+# Omega_hdm: massive Hot Dark Matter (HDM) fraction today (0 if massless)
+0.002454747908545508
+
+# T_cmb_K: CMB temperature today, in units of Kelvins
+2.7255
+
+# w0: dark energy equation of state today
+-1.0
+
+# wa: derivative -dw/da in CPL parameterization
+0.0
+
+# ----------------------------- code switches ----------------------------------
+#
+# switch_nonlinear
+# nonlinear computation: 0 for linear, 1 for nonlinear cb, 2 for nonlinear cb+nu
+2
+
+# switch_Nmunl
+# N_{\mu,NL}: number of angular modes passed to mode-coupling integrals
+3
+
+# switch_print
+# print results:
+#   0: print growth factor D, growth rate f, and total nu growth
+#   1: print linear and nonlinear cb power and total nu power
+#   2: print dd, dt, tt monopole powers for cb(lin), cb(nl) and all nu fluids
+#   3: print all nu and cb perturbations
+2
+
+# switch_transfer_type
+# transfer function format:
+#   0: modern CAMB 13-column format (k, CDM, baryon, photon, massless-nu, 
+#      massive-nu, matter, cold-matter, dark-energy, Weyl, v_CDM, v_b, v_b-v_c)
+#   1: old-style CAMB 7-column format, including only the first 7 columns above;
+#      this includes CLASS outputs with the format=camb option.
+#   2: CLASS standard format with one ncdm species
+#   3: CLASS standard format with three ncdm species
+#   4: CLASS standard format with one ur species and one ncdm species
+#   5: CLASS standard format with one ur species and three ncdm species
+5
+
+# -------------------------------- outputs -------------------------------------
+#
+# initial redshift
+200
+
+# number of redshifts at which to print results
+1
+
+# redshifts of outputs (arranged from greatest to least)
+0
+
+# ---------------------------- transfer inputs ---------------------------------
+#
+# Transfer function at z=0
+E1/class_E1_tk.dat
+
+# Massive neutrino approx: 0 for CAMB interp. (not used by FlowsForTheMasses)
+#                          1 for multi-fluid perturbation theory 
+1
+
+# ------------------ HDM parameters and distribution function ------------------
+#
+# HDM temperature constant T_{hdm,0} = a*T_{hdm}(a) in Kelvins at scale factor
+# well after decoupling but while the HDM species remains ultrarelativistic
+1.87893120226797
+
+# HDM mass m_hdm_eV in eV; effective degeneracy determined by m, T, Omega
+0.0476026319805906
+
+# distribution function file containing two columns: q  f(q)
+# where q = p/T_{hdm} and f is the unperturbed distribution function
+E1/f_E1.dat
+
+# ------------------------------------------------------------------------------

@@ -1,0 +1,99 @@
+FlowsForTheMassesII
+
+Non-linear multi-flow cosmological perturbation theory code for hot dark matter (HDM), described in Upadhye, Mosbech, Pierobon, and Wong (2024, in prep.) [U+24], and improving upon the code of Chen, Upadhye, and Wong, https://arxiv.org/abs/2210.16020 [CUW22].
+
+--------------------------------------------------------------------------------
+
+Installation:
+
+FlowsForTheMassesII relies upon the GNU Scientific Library (GSL), available at https://www.gnu.org/software/gsl/ .  Once this has been installed, edit the PATHS variable in Makefile to include the locations of the GSL headers and libraries.  Then compile FlowsForTheMassesII using "make" from the command prompt.
+
+Parallelization in FlowsForTheMassesII uses OpenMP.  The code may be compiled without parallelization by deleting the "-fopenmp" flag in the Makefile.
+
+--------------------------------------------------------------------------------
+
+Running:
+
+FlowsForTheMassesII is run directly from the command prompt.  It requires:
+
+  1. an input parameter file listing the cosmological parameters and code inputs, as detailed in the comments to the example file sample_params_FlowsForTheMassesII.dat provided with the code, and passed to the executable as an argument;
+
+  2. a transfer function at redshift zero, whose name must be specified in the parameter file, in one of the standard CAMB or CLASS formats listed in the parameter file after the "switch_transfer_type" parameter, with that switch set accordingly;
+
+  3. a distribution function file, whose name must be specified in the parameter file, listing in two columns q=p/T and f(q), where the distribution function f(q) is normalized so that the particle number density is $T^3 \int_0^\infty d^3 q f(q)$.
+
+An example of each of these three is provided in the directory E1 for a model with a 228 meV axion as well as three neutrinos of masses 0 meV, 9 meV, and 50 meV.  Note that parameters must appear in the order specified in this sample parameter file.  Lines beginning with a pound character ("#") are ignored by the code.  Also included are class_E1.ini, a CLASS input file used to generate the example transfer function file, and y_FlowsForTheMassesII_E1.dat, the output of the FlowsForTheMassesII code using this parameter file.
+
+--------------------------------------------------------------------------------
+
+Outputs:
+
+FlowsForTheMassesII outputs are controlled by "switch_print" in the parameter file, whose allowed values 0, 1, 2, and 3 correspond to the following:
+
+  0: prints the CDM+baryon growth factor D, its logarithic derivative f = dln(D)/dln(a), and the total HDM density monopole;
+
+  1: prints the linear CDM+baryon power, the non-linear CDM+baryon power, and the total HDM monopole power;
+
+  2: prints linear CDM+baryon power, the non-linear CDM+baryon power, and the HDM power for each flow individually;
+
+  3: prints all Legendre moments of all HDM perturbations and bispectrum integrals, followed by the linear and non-linear CDM+baryon perturbations and the Time-RG bispectrum integrals.
+
+--------------------------------------------------------------------------------
+
+Stability threshold kThr:
+
+As detailed in [U+24] and [CUW22], increasing the number of angular modes passed to the mode-coupling integrals (switch_Nmunl in the parameter file) leads to increasingly severe numerical instabilities.  When such instabilities cause FlowsForTheMassesII to reduce the step size below the minimum PARAM_DETA_MIN specified in FlowsForTheMassesII.cc , the code discards the highest k value and resumes integration.  The stability threshold kThr is the maximum k value for which integration continues.  Each time the derivative function der is called with kThr less than the maximum wave number KMAX it prints the kThr value.  Behavior of the HDM perturbations for k > kThr is ill-defined and discontinuous.
+
+--------------------------------------------------------------------------------
+
+Modification:
+
+Several switches and arrays have been hard-coded into FlowsForTheMassesII to balance accuracy and stability for the types of HDM considered in [U+24].  These may be modified prior to compilation.
+
+  * Gauss-Laguerre quadrature (GLQ) order is set by including one of the files in the directory GaLaQ in FlowsForTheMassesII.cc .  The default is to use 15-point GLQ as follows:
+	#include "GaLaQ/AU_GaLaQ_N15_a0.h"
+
+  * Flow-dependent truncation of the number of Legendre moments in the mode-coupling and bispectrum integrals is set through the array N_AI in FlowsForTheMassesII.cc .  
+
+  * PARAM_DETA_MIN in FlowsForTheMassesII.cc sets the minimum step size in ln(a) below which integration at a given k is discontinued; see the "Stability threshold" section above.
+
+  * PARAM_D2HDM_NL in FlowsForTheMassesII.cc sets the peak power spectrum value $\Delta^2_\alpha$ above which non-linear corrections are switched on for flow $\alpha$.
+
+  * PARAM_EABS and PARAM_EREL in FlowsForTheMassesII.cc are the absolute and relative error tolerance.
+
+  * SWITCH_CMBLENSING in FlowsForTheMassesII.cc may be set to 1 in order to compute the non-linear CMB lensing potential power spectrum in the Limber approximation, using the hyphi code of Upadhye, et al., https://arxiv.org/abs/2308.09755 .
+
+  * SWITCH_VERBOSITY in FlowsForTheMassesII.cc sets the verbosity level of the code as it runs.  
+
+  * NZREC in FlowsForTheMassesII.cc controls the number time steps at which to recompute the HDM mode-coupling integrals.  Computations are assumed to be equally-spaced in the scale factor a.
+
+  * N_TAU and N_MU in AU_cosmoparam.h set the number of flows and angular modes, respectively.  The input distribution function must span the range [GALAQ_q[0], GALAQ_q[N_TAU-1]].
+
+  * NK KMIN and KMAX in AU_fftgrid.h control how many wave numbers k [h/Mpc] are used, as well as their minimum and maximum values, respectively.  Since increasing NK worsens noise and exacerbates the numerical instabilities above, we recommend not raising NK above 128.
+
+  * The function Tmat0 in AU_cosmofunc.h reads input transfer functions.  New transfer function options may be added to the switch(C.switch_transfer_type) menu.  All that Tmat0 needs in order to normalize the linear power spectrum is the matter transfer function $T_m \propto \delta_m(k)$.  CLASS transfer functions in the default format include an extra factor $-1/k^2$ which must be removed.
+
+--------------------------------------------------------------------------------
+
+Citation:
+
+If you use FlowsForTheMassesII in published research, please cite our two articles:
+
+Upadhye, Mosbech, Pierobon, and Wong (2024, in prep.)
+
+Chen, Upadhye, and Wong, JCAP 05:046 (2023), e-Print: arXiv:2210.16020
+
+@article{Chen:2022cgw,
+    author = "Chen, Joe Zhiyu and Upadhye, Amol and Wong, Yvonne Y. Y.",
+    title = "{Flows for the masses: A multi-fluid non-linear perturbation theory for massive neutrinos}",
+    eprint = "2210.16020",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    doi = "10.1088/1475-7516/2023/05/046",
+    journal = "JCAP",
+    volume = "05",
+    pages = "046",
+    year = "2023"
+}
+
+
