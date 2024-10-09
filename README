@@ -65,7 +65,7 @@ Several switches and arrays have been hard-coded into FlowsForTheMassesII to bal
 
   * SWITCH_VERBOSITY in FlowsForTheMassesII.cc sets the verbosity level of the code as it runs.  
 
-  * NZREC in FlowsForTheMassesII.cc controls the number time steps at which to recompute the HDM mode-coupling integrals.  Computations are assumed to be equally-spaced in the scale factor a.
+  * NZREC in FlowsForTheMassesII.cc controls the number of time steps at which to recompute the HDM mode-coupling integrals.  Computations are assumed to be equally-spaced in the scale factor a.
 
   * N_TAU and N_MU in AU_cosmoparam.h set the number of flows and angular modes, respectively.  The input distribution function must span the range [GALAQ_q[0], GALAQ_q[N_TAU-1]].
 
