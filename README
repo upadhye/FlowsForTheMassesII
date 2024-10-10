@@ -79,9 +79,22 @@ Citation:
 
 If you use FlowsForTheMassesII in published research, please cite our two articles:
 
-Upadhye, Mosbech, Pierobon, and Wong (2024, in prep.)
 
-Chen, Upadhye, and Wong, JCAP 05:046 (2023), e-Print: arXiv:2210.16020
+(1) Upadhye, Mosbech, Pierobon, and Wong (2024), e-Print: arXiv:2410.05815
+
+@article{Upadhye:2024ypg,
+    author = "Upadhye, Amol and Mosbech, Markus R. and Pierobon, Giovanni and Wong, Yvonne Y. Y.",
+    title = "{Everything hot everywhere all at once: Neutrinos and hot dark matter as a single effective species}",
+    eprint = "2410.05815",
+    archivePrefix = "arXiv",
+    primaryClass = "astro-ph.CO",
+    reportNumber = "CPPC-2024-07 TTK-24-36 TTP24-37",
+    month = "10",
+    year = "2024"
+}
+
+
+(2) Chen, Upadhye, and Wong, JCAP 05:046 (2023), e-Print: arXiv:2210.16020
 
 @article{Chen:2022cgw,
     author = "Chen, Joe Zhiyu and Upadhye, Amol and Wong, Yvonne Y. Y.",
